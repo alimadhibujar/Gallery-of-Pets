@@ -1,4 +1,4 @@
-<H1><a href="[https://alimadhibujar.github.io/Gallery-of-Pets"]/></a>DEMO</H1>
+<H1><a href="https://alimadhibujar.github.io/Gallery-of-Pets"/></a>DEMO</H1>
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
