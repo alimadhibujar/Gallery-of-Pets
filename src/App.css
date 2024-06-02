@@ -1,42 +1,41 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.githubIcon {
+  font-size: 1.5rem;
+  color: hsl(211, 44%, 75%);
+  text-shadow: 1px 1px 0 hsl(0, 0%, 36%);
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+}
+.githubIcon i {
+  font-size: 2.5rem;
+  color: hsl(211, 44%, 75%);
+  border-radius: 50%;
+  animation: waveyButtons 1.5s infinite linear;
+}
+.githubIcon i:hover {
+  animation-play-state: paused;
+  transform: scale(1.1);
+  color: hsl(211, 44%, 65%);
+}
+@keyframes waveyButtons {
+  0% {
+    box-shadow: 0 0 0 0 hsla(0, 0%, 55%, 0.45);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    box-shadow: 0 0 0 2rem transparent;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

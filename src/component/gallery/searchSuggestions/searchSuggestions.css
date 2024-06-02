@@ -1,0 +1,28 @@
+.gallery-wrap .suggestions {
+  padding: 0 10px 0 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(25% - 4rem);
+  text-align: left;
+  border-top: 0px;
+  border-bottom: 0px;
+  background-color: #fff;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 8px 10px 6px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  @media (max-width: 768px) {
+    width: calc(33.33% - 4rem);
+  }
+  @media (max-width: 500px) {
+    width: calc(100% - 50px);
+  }
+}
+
+.search-input.suggestions li {
+  list-style: none;
+  cursor: pointer;
+  padding: 5px 0;
+  box-shadow: 0 1px 0 0 #ccc; /* Add a 1 pixel gray shadow at the bottom */
+}

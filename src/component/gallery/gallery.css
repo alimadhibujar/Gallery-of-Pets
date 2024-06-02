@@ -1,0 +1,81 @@
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+}
+
+.search > h2 {
+  color: hsl(20, 59%, 25%);
+  font-size: clamp(1rem, 1rem + 1vw, 2rem);
+  font-family: "Yesteryear", cursive;
+  font-style: normal;
+  margin: 0;
+  letter-spacing: 1.6px;
+  text-shadow: 5px 3px 5px rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    margin: 0.5rem 0;
+    width: 100%;
+    letter-spacing: 2px;
+  }
+}
+
+.gallery-wrap {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 40vh;
+  max-width: 1200px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.pets-not-found {
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error-msg,
+.loading {
+  color: red;
+  height: 40vh;
+  position: relative;
+}
+.loader {
+  color: hsl(0, 0%, 79%);
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 48px;
+  letter-spacing: 2px;
+  clip-path: inset(0 3ch 0 0);
+  animation: loading-animation 1s steps(4) infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader:before {
+  content: "Loading...";
+}
+@keyframes loading-animation {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
+}
+
+.error-msg p,
+.loading p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
