@@ -143,7 +143,7 @@ const Gallery = () => {
           {/* display Card component only if there is at least one image.
           otherwise display a message. */}
 
-          {images.length > 0 ? (
+          {currentImages.length > 0 ? (
             currentImages.map((image) => (
               <Card key={image.id} fetchType={fetchType} image={image} />
             ))
