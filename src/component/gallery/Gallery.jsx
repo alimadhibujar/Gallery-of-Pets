@@ -149,7 +149,7 @@ const Gallery = () => {
             ))
           ) : (
             <p className="pets-not-found">
-              Sorry! No pets found with this name!
+              Sorry! No {fetchType} found with this name!
             </p>
           )}
         </div>
