@@ -48,4 +48,5 @@
 }
 .active {
   background-color: hsl(0, 0%, 80%);
+  color: #70381c;
 }
