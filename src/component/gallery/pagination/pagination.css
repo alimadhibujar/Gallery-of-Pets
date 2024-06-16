@@ -1,3 +1,23 @@
+.pagination ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination ul li {
+  margin-bottom: 10px;
+}
+
+.pagination ul li:not(:first-child):not(:last-child) {
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
 .pagination-button {
   background-color: #eee;
   border: none;
@@ -10,7 +30,7 @@
   text-decoration: none;
   transition: all 0.25ms linear 0s;
   padding: 10px 16px;
-  margin-inline: 0.5rem;
+  margin-inline: 5px;
   position: relative;
   overflow: hidden;
 }
@@ -25,4 +45,7 @@
 }
 .pagination-button i {
   opacity: 0.5;
+}
+.active {
+  background-color: hsl(0, 0%, 80%);
 }

@@ -86,7 +86,7 @@ const Gallery = () => {
     setInputValue("");
   };
 
-  // to handle the pets category change when the user click on the buttons.
+  // to handle the pets category change when the user click on the top-right buttons.
   const handleFilterChange = (filterType) => {
     setFetchType(filterType);
     setSearchQuery("");
@@ -94,8 +94,11 @@ const Gallery = () => {
     setInputValue("");
   };
 
+  // this function has page as argument, which is (number) to buttonNumbers and (CurrentPage +1), (CurrentPage -1) Next and Prev buttons
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    setSearchQuery("");
+    setInputValue("");
   };
 
   // the current images to show based on the current page and items per page.
