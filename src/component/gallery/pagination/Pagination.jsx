@@ -1,15 +1,22 @@
 import React from "react";
 import "./pagination.css";
 
-const Pagination = ({ handlePageChange, currentPage, totalPages }) => {
-  // creating a number for every page
-  const pageNumbers = [];
+const Pagination = ({
+  handlePageChange,
+  currentPage,
+  totalPages,
+  isLoading,
+}) => {
+  const maxButtons = 8; // Maximum number of buttons to display
+  const halfMaxButtons = Math.floor(maxButtons / 2);
+  const startPage = Math.max(currentPage - halfMaxButtons, 1);
+  const endPage = Math.min(startPage + maxButtons - 1, totalPages);
 
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  const pageNumbers = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i
+  );
 
-  /* rendering a button for every pageNumber */
   const buttonPageNumbers = pageNumbers.map((number) => (
     <li key={number}>
       <button
@@ -17,10 +24,10 @@ const Pagination = ({ handlePageChange, currentPage, totalPages }) => {
           currentPage === number ? "active" : ""
         }`}
         onClick={(e) => {
-          // preventing from default behavior, submit the form or navigate to the URL
           e.preventDefault();
           handlePageChange(number);
         }}
+        disabled={isLoading}
       >
         {number}
       </button>
@@ -28,28 +35,55 @@ const Pagination = ({ handlePageChange, currentPage, totalPages }) => {
   ));
 
   return (
-    <nav className="pagination">
+    <nav className="pagination" aria-label="Pagination">
       <ul>
+        <li>
+          <button
+            onClick={() => handlePageChange(1)}
+            className="pagination-button"
+            disabled={currentPage === 1 || isLoading}
+          >
+            <i className="fa-solid fa-angle-double-left"></i>
+          </button>
+        </li>
         <li>
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             className="pagination-button"
-            disabled={currentPage === 1}
+            disabled={currentPage === 1 || isLoading}
           >
             <i className="fa-solid fa-angle-left"></i>
-            Prev
           </button>
         </li>
 
+        {startPage > 1 && (
+          <li>
+            <span>...</span>
+          </li>
+        )}
         {buttonPageNumbers}
+        {endPage < totalPages && (
+          <li>
+            <span>...</span>
+          </li>
+        )}
 
         <li>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             className="pagination-button"
-            disabled={currentPage === totalPages}
+            disabled={currentPage === totalPages || isLoading}
           >
-            Next<i className="fa-solid fa-angle-right"></i>
+            <i className="fa-solid fa-angle-right"></i>
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => handlePageChange(totalPages)}
+            className="pagination-button"
+            disabled={currentPage === totalPages || isLoading}
+          >
+            <i className="fa-solid fa-angle-double-right"></i>
           </button>
         </li>
       </ul>

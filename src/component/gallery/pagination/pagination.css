@@ -12,12 +12,6 @@
   margin-bottom: 10px;
 }
 
-.pagination ul li:not(:first-child):not(:last-child) {
-  @media (max-width: 500px) {
-    display: none;
-  }
-}
-
 .pagination-button {
   background-color: #eee;
   border: none;

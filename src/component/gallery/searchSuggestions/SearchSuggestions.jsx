@@ -3,7 +3,11 @@ import "./searchSuggestions.css";
 
 const SearchSuggestions = ({ suggestions, handleSuggestionClick }) => {
   return (
-    <div className="search-input suggestions">
+    <div
+      className={`search-input suggestions ${
+        suggestions.length > 0 ? "show" : ""
+      }`}
+    >
       {suggestions.slice(0, 5).map((suggestion) => (
         <li
           key={suggestion.id}

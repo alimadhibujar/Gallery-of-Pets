@@ -12,12 +12,19 @@
   border-bottom-right-radius: 0;
   box-shadow: 8px 10px 6px rgba(0, 0, 0, 0.1);
   z-index: 3;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 800ms linear;
   @media (max-width: 768px) {
     width: calc(33.33% - 4rem);
   }
   @media (max-width: 500px) {
     width: calc(100% - 50px);
   }
+}
+
+.gallery-wrap .suggestions.show {
+  max-height: 50%;
 }
 
 .search-input.suggestions li {

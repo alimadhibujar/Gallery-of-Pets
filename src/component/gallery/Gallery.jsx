@@ -23,7 +23,7 @@ const Gallery = () => {
   // changing the value of itemsPerPage based on the screen width
   // to show the images in a more responsive way. From Pc you need to refresh the page after adjusting devices  width.
   const getItemsPerPage = () => {
-    const width = document.body.clientWidth;
+    const width = window.innerWidth;
     if (width < 500) return 1;
     if (width >= 500 && width <= 768) return 3;
     return 4;
@@ -36,6 +36,7 @@ const Gallery = () => {
       const response = await fetch(
         `${urlApi}${fetchType}?&page=${currentPage}&search=${searchQuery}`
       );
+
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
@@ -51,7 +52,7 @@ const Gallery = () => {
 
   useEffect(() => {
     fetchImages();
-  }, [currentPage, fetchType, searchQuery]);
+  }, [currentPage, fetchType, searchQuery, itemsPerPage]);
 
   useEffect(() => {
     if (inputValue) {
@@ -66,8 +67,7 @@ const Gallery = () => {
 
   // to handle the input change in the search bar.
   const handleInputChange = (event) => {
-    const value = event.target.value.toLowerCase();
-    setInputValue(value);
+    setInputValue(event.target.value.toLowerCase());
   };
 
   // to handle the search form submission.
@@ -162,6 +162,7 @@ const Gallery = () => {
         totalPages={totalPages} // Pass the total number of pages  to disable next button when on the last page.
         currentPage={currentPage} // Pass the current page number to disable previous button when on the first page.
         handlePageChange={handlePageChange} // Pass the handlePageChange function to update the current page number.
+        isLoading={isLoading}
       />
     </section>
   );
