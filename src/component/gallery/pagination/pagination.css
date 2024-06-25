@@ -12,6 +12,12 @@
   margin-bottom: 10px;
 }
 
+.ellipsis {
+  display: inline-block;
+  padding: 0 10px;
+  color: #999;
+}
+
 .pagination-button {
   background-color: #eee;
   border: none;

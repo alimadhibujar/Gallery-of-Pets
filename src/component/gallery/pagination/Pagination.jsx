@@ -7,7 +7,7 @@ const Pagination = ({
   totalPages,
   isLoading,
 }) => {
-  const maxButtons = 8; // Maximum number of buttons to display
+  const maxButtons = 5; // Maximum number of buttons to display
   const halfMaxButtons = Math.floor(maxButtons / 2);
   const startPage = Math.max(currentPage - halfMaxButtons, 1);
   const endPage = Math.min(startPage + maxButtons - 1, totalPages);
@@ -39,15 +39,6 @@ const Pagination = ({
       <ul>
         <li>
           <button
-            onClick={() => handlePageChange(1)}
-            className="pagination-button"
-            disabled={currentPage === 1 || isLoading}
-          >
-            <i className="fa-solid fa-angle-double-left"></i>
-          </button>
-        </li>
-        <li>
-          <button
             onClick={() => handlePageChange(currentPage - 1)}
             className="pagination-button"
             disabled={currentPage === 1 || isLoading}
@@ -57,15 +48,33 @@ const Pagination = ({
         </li>
 
         {startPage > 1 && (
-          <li>
-            <span>...</span>
-          </li>
+          <>
+            <li>
+              <button
+                className="pagination-button"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1 || isLoading}
+              >
+                1
+              </button>
+            </li>
+            {startPage > 2 && <li className="ellipsis">...</li>}
+          </>
         )}
         {buttonPageNumbers}
         {endPage < totalPages && (
-          <li>
-            <span>...</span>
-          </li>
+          <>
+            {endPage < totalPages - 1 && <li className="ellipsis">...</li>}
+            <li>
+              <button
+                className="pagination-button"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages || isLoading}
+              >
+                {totalPages}
+              </button>
+            </li>
+          </>
         )}
 
         <li>
@@ -75,15 +84,6 @@ const Pagination = ({
             disabled={currentPage === totalPages || isLoading}
           >
             <i className="fa-solid fa-angle-right"></i>
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => handlePageChange(totalPages)}
-            className="pagination-button"
-            disabled={currentPage === totalPages || isLoading}
-          >
-            <i className="fa-solid fa-angle-double-right"></i>
           </button>
         </li>
       </ul>
