@@ -24,15 +24,19 @@
 }
 
 .gallery-wrap .suggestions.show {
-  max-height: 50%;
+  max-height: 60%;
   border-top: 1px solid #ccc;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .search-input.suggestions li {
   list-style: none;
   cursor: pointer;
-  padding: 5px 0;
+  padding: 0.5rem 0;
   box-shadow: 0 1px 0 0 #ccc; /* Add a 1 pixel gray shadow at the bottom */
+  transition: box-shadow 200ms ease-in-out;
+}
+.search-input.suggestions li:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Add a 1 pixel gray shadow at the bottom */
 }
