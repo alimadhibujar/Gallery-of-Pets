@@ -56,9 +56,9 @@ const Gallery = () => {
 
   useEffect(() => {
     if (inputValue) {
-      const filteredSuggestions = images.filter((image) =>
-        image.name.toLowerCase().includes(inputValue)
-      );
+      const filteredSuggestions = images
+        .filter((image) => image.name.toLowerCase().startsWith(inputValue)) // to find items that contain the input value anywhere in the string , use includes(), instant of startsWith().
+        .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
       setSuggestions(filteredSuggestions);
     } else {
       setSuggestions([]);
