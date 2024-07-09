@@ -70,6 +70,11 @@ const Gallery = () => {
     setInputValue(event.target.value.toLowerCase());
   };
 
+  // to clear the input value when the user clicks on the close icon.
+  const clearInput = () => {
+    setInputValue("");
+  };
+
   // to handle the search form submission.
   const handleSearch = (event) => {
     event.preventDefault();
@@ -118,6 +123,7 @@ const Gallery = () => {
           searchInput={searchInput}
           handleInputChange={handleInputChange}
           inputValue={inputValue}
+          clearInput={clearInput}
         />
 
         <h2>Gallery of Pets </h2>
