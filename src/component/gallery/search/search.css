@@ -21,6 +21,7 @@
 .search-input {
   padding: 10px;
   font-size: 16px;
+  font-weight: 200;
   border: 0;
   width: 100%;
 }
@@ -29,6 +30,10 @@
 }
 .search-input::placeholder {
   color: hsl(0, 0%, 74%);
+}
+
+.search-input:focus::placeholder {
+  color: transparent;
 }
 
 .close-icon {
