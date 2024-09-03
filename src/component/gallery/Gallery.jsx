@@ -5,6 +5,7 @@ import Search from "./search/Search.jsx";
 import CategoryButtons from "./categoryButtons/CategoryButtons.jsx";
 import Pagination from "./pagination/Pagination.jsx";
 import SearchSuggestions from "./searchSuggestions/SearchSuggestions.jsx";
+import SkeletonLoading from "./skeletonLoading/SkeletonLoading.jsx";
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -116,7 +117,7 @@ const Gallery = () => {
   );
 
   return (
-    <section id="gallery">
+    <section className="gallery">
       <div className="search">
         <Search
           handleSearch={handleSearch}
@@ -134,35 +135,28 @@ const Gallery = () => {
         />
       </div>
 
-      {isLoading ? (
-        <article className="loading">
-          <div className="loader"></div>
-        </article>
-      ) : error ? (
-        <article className="error-msg">
-          <p>{error}</p>
-        </article>
-      ) : (
-        <div className="gallery-wrap">
-          <SearchSuggestions
-            suggestions={suggestions}
-            handleSuggestionClick={handleSuggestionClick}
-          />
+      <div className="gallery-wrap">
+        <SearchSuggestions
+          suggestions={suggestions}
+          handleSuggestionClick={handleSuggestionClick}
+        />
 
-          {/* display Card component only if there is at least one image.
-          otherwise display a message. */}
-
-          {currentImages.length > 0 ? (
-            currentImages.map((image) => (
-              <Card key={image.id} fetchType={fetchType} image={image} />
-            ))
-          ) : (
-            <p className="pets-not-found">
-              Sorry! No {fetchType} found with this name!
-            </p>
-          )}
-        </div>
-      )}
+        {error ? (
+          <article className="error-msg">
+            <p>{error}</p>
+          </article>
+        ) : isLoading ? (
+          <SkeletonLoading count={itemsPerPage} />
+        ) : currentImages.length > 0 ? (
+          currentImages.map((image) => (
+            <Card key={image.id} fetchType={fetchType} image={image} />
+          ))
+        ) : (
+          <p className="pets-not-found">
+            Sorry! No {fetchType} found with this name!
+          </p>
+        )}
+      </div>
 
       <Pagination
         totalPages={totalPages} // Pass the total number of pages  to disable next button when on the last page.

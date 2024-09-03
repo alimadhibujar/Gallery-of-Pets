@@ -1,3 +1,11 @@
+.gallery {
+  max-width: 1200px;
+  width: 95vw;
+  @media (max-width: 500px) {
+    width: 100vw;
+  }
+}
+
 .search {
   display: flex;
   justify-content: space-between;
@@ -26,10 +34,7 @@
 .gallery-wrap {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
   height: 40vh;
-  max-width: 1200px;
   margin: 20px 0;
   position: relative;
 }
@@ -42,38 +47,13 @@
   transform: translate(-50%, -50%);
 }
 
-.error-msg,
-.loading {
+.error-msg {
   color: red;
   height: 40vh;
   position: relative;
 }
-.loader {
-  color: hsl(0, 0%, 79%);
-  width: fit-content;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 48px;
-  letter-spacing: 2px;
-  clip-path: inset(0 3ch 0 0);
-  animation: loading-animation 1s steps(4) infinite;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
-.loader:before {
-  content: "Loading...";
-}
-@keyframes loading-animation {
-  to {
-    clip-path: inset(0 -1ch 0 0);
-  }
-}
-
-.error-msg p,
-.loading p {
+.error-msg p {
   position: absolute;
   left: 50%;
   top: 50%;
