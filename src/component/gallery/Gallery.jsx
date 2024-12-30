@@ -6,6 +6,7 @@ import CategoryButtons from "./categoryButtons/CategoryButtons.jsx";
 import Pagination from "./pagination/Pagination.jsx";
 import SearchSuggestions from "./searchSuggestions/SearchSuggestions.jsx";
 import SkeletonLoading from "./skeletonLoading/SkeletonLoading.jsx";
+import mockFetchPets from "./data/mockFetchPets.js";
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -16,34 +17,24 @@ const Gallery = () => {
   const [fetchType, setFetchType] = useState("dogs");
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [inputValue, setInputValue] = useState(""); // state to store the input value
+  const [inputValue, setInputValue] = useState(""); // Tracks search input state
   const searchInput = useRef(null);
 
-  const urlApi = "https://freetestapi.com/api/v1/";
-
-  // changing the value of itemsPerPage based on the screen width
-  // to show the images in a more responsive way. From Pc you need to refresh the page after adjusting devices  width.
+  // Adjust items per page based on viewport width
   const getItemsPerPage = () => {
     const width = window.innerWidth;
     if (width < 500) return 1;
     if (width >= 500 && width <= 768) return 3;
     return 4;
   };
-  const itemsPerPage = getItemsPerPage(); // Use the function to get the items per page
+  const itemsPerPage = getItemsPerPage();
 
   const fetchImages = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${urlApi}${fetchType}?&page=${currentPage}&search=${searchQuery}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const data = await response.json();
+      const data = await mockFetchPets(fetchType, currentPage, searchQuery);
       setImages(data);
-      setTotalPages(Math.ceil(data.length / itemsPerPage)); //setTotalPage(item.totalPage) if the api has a totalPage prop.
+      setTotalPages(Math.ceil(data.length / itemsPerPage));
     } catch (error) {
       setError(error.message);
     } finally {
@@ -51,48 +42,67 @@ const Gallery = () => {
     }
   };
 
+  //  API fetch implementation
+  // const urlApi = "https://freetestapi.com/api/v1/";
+  // const fetchImages = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch(
+  //       `${urlApi}${fetchType}?&page=${currentPage}&search=${searchQuery}`
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error("Something went wrong!");
+  //     }
+  //     const data = await response.json();
+  //     setImages(data);
+  //     setTotalPages(Math.ceil(data.length / itemsPerPage));
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   useEffect(() => {
     fetchImages();
   }, [currentPage, fetchType, searchQuery, itemsPerPage]);
 
   useEffect(() => {
     if (inputValue) {
+      // Filter and sort suggestions based on input
       const filteredSuggestions = images
-        .filter((image) => image.name.toLowerCase().startsWith(inputValue)) // to find items that contain the input value anywhere in the string , use includes(), instant of startsWith().
-        .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+        .filter((image) => image.name.toLowerCase().startsWith(inputValue))
+        .sort((a, b) => a.name.localeCompare(b.name));
       setSuggestions(filteredSuggestions);
     } else {
       setSuggestions([]);
     }
   }, [inputValue, images]);
 
-  // to handle the input change in the search bar.
+  // Search input handlers
   const handleInputChange = (event) => {
     setInputValue(event.target.value.toLowerCase());
   };
 
-  // to clear the input value when the user clicks on the close icon.
   const clearInput = () => {
     setInputValue("");
   };
 
-  // to handle the search form submission.
   const handleSearch = (event) => {
     event.preventDefault();
     setSearchQuery(inputValue);
     setCurrentPage(1);
-    setInputValue(""); // Clear the search input
-    setSuggestions([]); // Clear the suggestions
+    setInputValue("");
+    setSuggestions([]);
   };
 
-  // to handle the click on the suggestion pets name when user type in the search bar.
   const handleSuggestionClick = (suggestionName) => {
-    setInputValue(suggestionName); // Update the input value with the clicked suggestion
     setSearchQuery(suggestionName);
     setInputValue("");
   };
 
-  // to handle the pets category change when the user click on the top-right buttons.
+  // Reset states when changing pet category
   const handleFilterChange = (filterType) => {
     setFetchType(filterType);
     setSearchQuery("");
@@ -100,21 +110,32 @@ const Gallery = () => {
     setInputValue("");
   };
 
-  // this function has page as argument, which is (number) to buttonNumbers and (CurrentPage +1), (CurrentPage -1) Next and Prev buttons
+  // Update page and reset search states
   const handlePageChange = (page) => {
     setCurrentPage(page);
     setSearchQuery("");
     setInputValue("");
   };
 
-  // the current images to show based on the current page and items per page.
-  // they start from image with index of (currentPage - 1) * itemsPerPage
-  //  and end at image with index of currentPage * itemsPerPage
-
+  // Get current page's images
   const currentImages = images.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  // Render image cards or no results message
+  const CardsImageList = ({ currentImages, fetchType }) => {
+    if (currentImages.length === 0) {
+      return (
+        <p className="pets-not-found">
+          Sorry! No {fetchType} found with this name!
+        </p>
+      );
+    }
+    return currentImages.map((image) => (
+      <Card key={image.id} fetchType={fetchType} image={image} id={image.id} />
+    ));
+  };
 
   return (
     <section className="gallery">
@@ -141,27 +162,23 @@ const Gallery = () => {
           handleSuggestionClick={handleSuggestionClick}
         />
 
-        {error ? (
+        {error && (
           <article className="error-msg">
             <p>{error}</p>
           </article>
-        ) : isLoading ? (
-          <SkeletonLoading count={itemsPerPage} />
-        ) : currentImages.length > 0 ? (
-          currentImages.map((image) => (
-            <Card key={image.id} fetchType={fetchType} image={image} />
-          ))
-        ) : (
-          <p className="pets-not-found">
-            Sorry! No {fetchType} found with this name!
-          </p>
+        )}
+
+        {isLoading && <SkeletonLoading count={itemsPerPage} />}
+
+        {!error && !isLoading && (
+          <CardsImageList currentImages={currentImages} fetchType={fetchType} />
         )}
       </div>
 
       <Pagination
-        totalPages={totalPages} // Pass the total number of pages  to disable next button when on the last page.
-        currentPage={currentPage} // Pass the current page number to disable previous button when on the first page.
-        handlePageChange={handlePageChange} // Pass the handlePageChange function to update the current page number.
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
         isLoading={isLoading}
       />
     </section>

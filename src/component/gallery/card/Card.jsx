@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./card.css";
 
-const Card = ({ image, fetchType }) => {
+const Card = ({ image, fetchType, id }) => {
   const [isActive, setIsActive] = useState(false);
   const cardRef = useRef(null);
 
@@ -25,11 +25,12 @@ const Card = ({ image, fetchType }) => {
 
   return (
     <figure
-      className={`card ${isActive ? "active" : ""}`}
+      className={`card ${fetchType} ${isActive ? "active" : ""}`}
       ref={cardRef}
       onClick={handleCardClick}
+      style={{ "--i": id }}
     >
-      <img src={image.image} alt={image.description} />
+      <img src={image.image} alt={`${fetchType} fake image nr: ${id}`} />
 
       <figcaption className="caption">
         <div>Name: {image.name}</div>

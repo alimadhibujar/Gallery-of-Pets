@@ -12,9 +12,10 @@
   border-bottom-right-radius: 0;
   box-shadow: 8px 10px 6px rgba(0, 0, 0, 0.1);
   z-index: 3;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 800ms linear;
+  height: 0;
+  overflow: clip;
+  opacity: 0.85;
+  transition: height 600ms linear;
   @media (max-width: 768px) {
     width: calc(33.33% - 0.7rem);
   }
@@ -24,7 +25,10 @@
 }
 
 .gallery-wrap .suggestions.show {
-  max-height: 80%;
+  /* :root {
+  interpolate-size: allow-keywords;
+}  to the root app, otherwise animate max-high property; https://codepen.io/kevinpowell/pen/XWvpjLr */
+  height: auto;
   border-top: 1px solid #ccc;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -33,7 +37,7 @@
 .search-input.suggestions li {
   list-style: none;
   cursor: pointer;
-  padding: 0.5rem 0px 0.5rem 40px;
+  padding: 10px;
   box-shadow: 0 1px 0 0 #ccc; /* Add a 1 pixel gray shadow at the bottom */
   transition: box-shadow 200ms ease-in-out, color 200ms ease-in-out;
 }
