@@ -54,14 +54,10 @@ img[alt] {
   color: hsl(0, 0%, 83%);
   font-size: small;
 }
-/* preventing alt text image when card is active */
-.card.active img[alt] {
-  display: none;
-}
 
 .caption {
   color: #eee;
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -83,12 +79,17 @@ img[alt] {
 
 .card-content {
   color: #eee;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  background-color: rgba(0, 0, 0, 0.45);
   width: 100%;
-  height: 100%;
+  height: 0;
+  overflow: hidden;
   position: absolute;
   inset: 0;
+  transition: height 0.9s;
+}
+
+.card.active .card-content {
+  height: 100%;
 }
 
 .card-content ul {
@@ -97,10 +98,12 @@ img[alt] {
   list-style: none;
   text-align: left;
   padding: 0 1em 1em;
+  opacity: 0;
+  transition: opacity 0.3s 0.3s; /* Delay opacity transition */
 }
 
-.card.active .card-content {
-  display: block;
+.card.active .card-content ul {
+  opacity: 1;
 }
 .card-content ul li {
   border-bottom: 1px dotted hwb(0 67% 20%);
