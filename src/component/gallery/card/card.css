@@ -99,11 +99,13 @@ img[alt] {
   text-align: left;
   padding: 0 1em 1em;
   opacity: 0;
-  transition: opacity 0.3s 0.3s; /* Delay opacity transition */
+  transform: translateY(-100%); /* Start offscreen (above the container) */
+  transition: transform 0.9s, opacity 0.3s 0.3s; /* Slide first, then fade in */
 }
 
 .card.active .card-content ul {
   opacity: 1;
+  transform: translateY(0);
 }
 .card-content ul li {
   border-bottom: 1px dotted hwb(0 67% 20%);
