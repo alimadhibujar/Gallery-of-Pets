@@ -14,24 +14,31 @@ const Gallery = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [fetchType, setFetchType] = useState("dogs");
+  const [fetchType, setFetchType] = useState("birds");
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState(""); // Tracks search input state
+  const [itemsPerPage, setItemsPerPage] = useState(4);
   const searchInput = useRef(null);
 
-  // Adjust items per page based on viewport width
-  const getItemsPerPage = () => {
-    const width = window.innerWidth;
-    if (width < 500) return 1;
-    if (width >= 500 && width <= 768) return 3;
-    return 4;
-  };
-  const itemsPerPage = getItemsPerPage();
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      // Adjust items per page based on viewport width
+      const width = window.innerWidth;
+      if (width < 500) setItemsPerPage(1);
+      else if (width <= 768) setItemsPerPage(3);
+      else setItemsPerPage(4);
+    };
+    // This adjustment occurs on component mount and window resize
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchImages = async () => {
     try {
       setIsLoading(true);
+      setError(null); //  Clear previous errors on new fetch attempts
       const data = await mockFetchPets(fetchType, currentPage, searchQuery);
       setImages(data);
       setTotalPages(Math.ceil(data.length / itemsPerPage));
@@ -93,13 +100,13 @@ const Gallery = () => {
     event.preventDefault();
     setSearchQuery(inputValue);
     setCurrentPage(1);
-    setInputValue("");
     setSuggestions([]);
   };
 
   const handleSuggestionClick = (suggestionName) => {
     setSearchQuery(suggestionName);
-    setInputValue("");
+    setInputValue(suggestionName);
+    setSuggestions([]);
   };
 
   // Reset states when changing pet category
@@ -133,7 +140,7 @@ const Gallery = () => {
       );
     }
     return currentImages.map((image) => (
-      <Card key={image.id} fetchType={fetchType} image={image} id={image.id} />
+      <Card key={image.id} fetchType={fetchType} image={image} />
     ));
   };
 

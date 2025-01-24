@@ -15,22 +15,6 @@
   }
 }
 
-/*  card different background color; https://codepen.io/kevinpowell/pen/XWvpjLr */
-.dogs {
-  --dog-color: hsl(11, 55%, 66%);
-  background: hsl(from var(--dog-color) h s calc(l - var(--i) * 3));
-}
-
-.cats {
-  --cat-color: hsl(11, 45%, 70%);
-  background: hsl(from var(--cat-color) h s calc(l - var(--i) * 3));
-}
-
-.birds {
-  --bird-color: hsl(13, 40%, 50%);
-  background: hsl(from var(--bird-color) h s calc(l - var(--i) * 2));
-}
-
 .card:first-of-type {
   margin-left: 0;
 }
@@ -43,15 +27,15 @@
 }
 
 .card img {
-  aspect-ratio: 16/9;
   -webkit-aspect-ratio: 16/9;
+  aspect-ratio: 16/9;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 img[alt] {
-  color: hsl(0, 0%, 83%);
+  color: hsl(0, 0%, 52%);
   font-size: small;
 }
 
@@ -78,8 +62,8 @@ img[alt] {
 }
 
 .card-content {
-  color: #eee;
-  background-color: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 0;
   overflow: hidden;

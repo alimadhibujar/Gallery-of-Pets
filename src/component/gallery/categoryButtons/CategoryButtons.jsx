@@ -3,9 +3,9 @@ import "./categoryButtons.css";
 
 const CategoryButtons = ({ fetchType, handleFilterChange }) => {
   const categories = [
-    { name: "dogs", label: "Dogs" },
-    { name: "cats", label: "Cats" },
     { name: "birds", label: "Birds" },
+    { name: "cats", label: "Cats" },
+    { name: "dogs", label: "Dogs" },
   ];
 
   // Map through the categories array to create a button for each category

@@ -18,7 +18,7 @@
 
 .search > h2 {
   color: hsl(20, 59%, 25%);
-  font-size: clamp(1rem, 1rem + 1vw, 2rem);
+  font-size: clamp(1.2rem, 1.2rem + 1vw, 2rem);
   font-family: "Yesteryear", cursive;
   font-style: normal;
   margin: 0;
@@ -27,7 +27,6 @@
   @media (max-width: 768px) {
     margin: 0.5rem 0;
     width: 100%;
-    letter-spacing: 2px;
   }
 }
 
